@@ -8,7 +8,17 @@ import pickle
 import numpy as np
 import os
 import platform
-
+import ssl
+import requests
+requests.packages.urllib3.disable_warnings()
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    # Legacy Python that doesn't verify HTTPS certificates by default
+    pass
+else:
+    # Handle target environment that doesn't support HTTPS verification
+    ssl._create_default_https_context = _create_unverified_https_context
 
 def load_pickle(f):
     version = platform.python_version_tuple()
