@@ -3,7 +3,8 @@ import os
 import urllib.request
 import tarfile
 import zipfile
-import progressbar
+import tqdm
+pbar = None
 # Functions used to download dataset from the internet
 def download_file(url, download_dir):
     filename = url.split('/')[-1]
@@ -27,3 +28,12 @@ def download_progress(count, block_size, total_size):
     """
     Function used to track the progress of a download.
     """
+    global pbar
+    if pbar is None:
+        pbar = tqdm.tqdm(total=total_size)
+    downloaded = count * block_size
+    if downloaded < total_size:
+        pbar.update(min(block_size, total_size - downloaded))
+    else:
+        pbar.close()
+        pbar = None
