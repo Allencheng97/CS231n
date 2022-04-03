@@ -1,2 +1,6 @@
 
 image_classify/data/
+
+image_classify/__pycache__/data_utils.cpython-38.pyc
+
+image_classify/__pycache__/download_script.cpython-38.pyc
